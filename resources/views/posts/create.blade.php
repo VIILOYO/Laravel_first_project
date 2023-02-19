@@ -1,3 +1,5 @@
+<title>Создание поста</title>
+
 <form method="post" action="/posts">
     @csrf
     <label for="title">Title</label>

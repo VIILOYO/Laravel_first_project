@@ -1,4 +1,4 @@
-<title>Laravel</title>
+<title>Блог</title>
 <h1>Блок постов</h1>
 <a href="/posts/create">Создать пост</a>
 

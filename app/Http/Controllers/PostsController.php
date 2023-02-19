@@ -18,9 +18,9 @@ class PostsController extends Controller
 
     public function store(Request $request) {
         $data = $request->only(['title', 'content']);
-        Post::create($data);
+        $post = Post::create($data);
 
-        return redirect('/posts');
+        return redirect("/posts/$post->id");
     }
 
     public function show($id) {
