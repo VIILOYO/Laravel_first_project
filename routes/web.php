@@ -17,8 +17,11 @@ Route::controller(PostsController::class)->group(function() {
 });
 
 Route::controller(TestsController::class)->group(function() {
-    Route::get('/tests', 'index');
+    Route::get('/tests', 'index')->name('home');
     Route::get('/tests/create', 'create');
     Route::get('/tests/{id}', 'show');
     Route::post('/tests', 'store');
+    Route::get('/tests/{id}/delete', 'delete');
+    Route::get('/tests/{id}/update', 'update');
+    Route::post('/tests/{id}', 'successUpdate');
 });
