@@ -1,6 +1,6 @@
 <title>Блог</title>
 <h1>Блок постов</h1>
-<a href="/posts/create">Создать пост</a>
+<a href="{{ route('posts.create') }}">Создать пост</a>
 
 @foreach ($posts as $post)
     <h3>{{ $post->title }}</h3>

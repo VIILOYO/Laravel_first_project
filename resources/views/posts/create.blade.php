@@ -1,6 +1,6 @@
 <title>Создание поста</title>
 
-<form method="post" action="/posts">
+<form method="post" action="{{ route('posts.store') }}">
     @csrf
     <label for="title">Title</label>
     <input type="text" name="title"><br>

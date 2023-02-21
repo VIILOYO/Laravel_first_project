@@ -20,7 +20,7 @@ class PostsController extends Controller
         $data = $request->only(['title', 'content']);
         $post = Post::create($data);
 
-        return redirect("/posts/$post->id");
+        return redirect()->route('posts.show', ['id' => $post->id]);
     }
 
     public function show($id) {

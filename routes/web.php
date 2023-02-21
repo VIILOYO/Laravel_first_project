@@ -5,23 +5,40 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\TestsController;
+use App\Http\Controllers\CategoriesController;
 
 
 Route::get('/', [Controller::class, 'index']);
 
-Route::controller(PostsController::class)->group(function() {
-    Route::get('/posts',  'index');
-    Route::get('/posts/create', 'create');
-    Route::get('/posts/{id}', 'show');
-    Route::post('/posts', 'store');
+Route::prefix('posts')->controller(PostsController::class)->group(function() {
+    Route::get('/',  'index')->name('posts.index');
+    Route::get('/create', 'create')->name('posts.create');
+    Route::get('/{id}', 'show')->name('posts.show');
+    Route::post('/', 'store')->name('posts.store');
 });
 
-Route::controller(TestsController::class)->group(function() {
-    Route::get('/tests', 'index')->name('home');
-    Route::get('/tests/create', 'create');
-    Route::get('/tests/{id}', 'show');
-    Route::post('/tests', 'store');
-    Route::get('/tests/{id}/delete', 'delete');
-    Route::get('/tests/{id}/update', 'update');
-    Route::post('/tests/{id}', 'successUpdate');
+Route::resource('categories', CategoriesController::class)->whereNumber(['category']);
+
+/* Замена этому
+
+Route::prefix('categories')->controller(CategoriesController::class)->group(function() {
+    Route::get('/', 'index');
+    Route::get('/create', 'create');
+    Route::get('/{id}', 'show');
+    Route::post('/', 'store');
+    Route::get('/{id}/edit', 'edit');
+    Route::put('/{id}', 'update');
+    Route::delete('/{id}', 'destroy');
+});
+
+*/
+
+Route::prefix('tests')->controller(TestsController::class)->group(function() {
+    Route::get('/', 'index')->name('home');
+    Route::get('/create', 'create');
+    Route::get('/{id}', 'show');
+    Route::post('/', 'store');
+    Route::get('/{id}/update', 'update');
+    Route::put('/{id}', 'successUpdate');
+    Route::delete('/{id}', 'delete');
 });
