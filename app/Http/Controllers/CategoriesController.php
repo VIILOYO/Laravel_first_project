@@ -5,23 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Models\Category;
+use Illuminate\View\View;
 
 class CategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(): View
     {
-        dd(123);
+        return view('categories.index', ['categories' => Category::all()]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): Response
+    public function create(): View
     {
-        //
+        return view('categories.create');
     }
 
     /**
@@ -29,23 +31,26 @@ class CategoriesController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        //
+        $data = $request->only('slug', 'title', 'description');
+        $category = Category::firstOrCreate($data);
+
+        return redirect()->route('categories.show', ['category' => $category->id]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id): Response
+    public function show(string $id): View
     {
-        dd($id);
+        return view('categories.show', ['category' => Category::findOrFail($id)]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id): Response
+    public function edit(string $id): View
     {
-        //
+        return view('categories.edit', ['category' => Category::findOrFail($id)]);
     }
 
     /**
@@ -53,7 +58,10 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, string $id): RedirectResponse
     {
-        //
+        $data = $request->only('slug', 'title', 'description');
+        $category = Category::findOrFail($id)->update($data);
+
+        return redirect()->route('categories.show', ['category' => $category]);
     }
 
     /**
@@ -61,6 +69,8 @@ class CategoriesController extends Controller
      */
     public function destroy(string $id): RedirectResponse
     {
-        //
+        Category::remove($id);
+
+        return redirect()->route('categories.index');
     }
 }

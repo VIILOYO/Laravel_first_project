@@ -1,7 +1,7 @@
 <title>Тесты</title>
 <h1>Тесты</h1>
 <a href="{{ route('posts.index') }}">На страницу постов</a><br>
-<a href="/tests/create">Создать тест</a>
+<a href="{{ route('tests.create') }}">Создать тест</a>
 
 @foreach ($tests as $test)
     <h3>{{ $test->title }}</h3>

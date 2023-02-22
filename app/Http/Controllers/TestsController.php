@@ -34,7 +34,7 @@ class TestsController extends Controller
         $data = $request->only(['title', 'description']);
         $test = Test::create($data);
 
-        return redirect("tests/$test->id");
+        return redirect()->route('tests.show', [$test]);
     }
 
     /**
@@ -60,8 +60,9 @@ class TestsController extends Controller
     {
         $data = $request->only('title', 'description');
         Test::findOrFail($id)->update($data);
+        $test = Test::findOrFail($id);
 
-        return redirect("tests/$id");
+        return redirect()->route('tests.show', [$test]);
     }
 
     /**
