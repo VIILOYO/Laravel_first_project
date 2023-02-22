@@ -33,12 +33,14 @@ Route::prefix('categories')->controller(CategoriesController::class)->group(func
 
 */
 
-Route::prefix('tests')->controller(TestsController::class)->group(function() {
-    Route::get('/', 'index')->name('home');
-    Route::get('/create', 'create');
-    Route::get('/{id}', 'show');
-    Route::post('/', 'store');
-    Route::get('/{id}/update', 'update');
-    Route::put('/{id}', 'successUpdate');
-    Route::delete('/{id}', 'delete');
-});
+Route::resource('tests', TestsController::class)->whereNumber(['test']);
+
+// Route::prefix('tests')->controller(TestsController::class)->group(function() {
+//     Route::get('/', 'index')->name('home');
+//     Route::get('/create', 'create');
+//     Route::get('/{id}', 'show')->name('tests.show');
+//     Route::post('/', 'store');
+//     Route::get('/{id}/update', 'update');
+//     Route::put('/{id}', 'successUpdate');
+//     Route::delete('/{id}', 'desctroy')->name('tests.delete');;
+// });

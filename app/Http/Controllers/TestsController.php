@@ -26,18 +26,19 @@ class TestsController extends Controller
         return view('tests.show', ['test' => Test::findOrFail($id)]);
     }
 
-    public function delete($id) {
+    public function destroy($id) {
         Test::findOrFail($id)->delete();
-        return redirect()->route('home');
+        return redirect()->route('tests.index');
     }
 
-    public function update($id) {
-        return view('tests.update', ['test' => Test::findOrFail($id)]);
+    public function edit($id) {
+        return view('tests.edit', ['test' => Test::findOrFail($id)]);
     }
 
-    public function successUpdate(Request $request, $id) {
+    public function update($id, Request $request) {
         $data = $request->only('title', 'description');
         Test::findOrFail($id)->update($data);
+
         return redirect("tests/$id");
     }
 }

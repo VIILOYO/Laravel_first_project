@@ -1,6 +1,6 @@
 <title>Создание теста</title>
 
-<form action="/tests" method="post">
+<form action="{{ route('tests.store') }}" method="post">
     @csrf
     <label for="title">Заголовок</label>
     <input type="text" name="title" placeholder="Заголовок"><br>

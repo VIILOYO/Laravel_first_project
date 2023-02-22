@@ -1,7 +1,8 @@
 <title>Обновление поста {{ $test->id }}</title>
 
-<form action="/tests/{{ $test->id }}" method="post">
+<form action="{{ route('tests.update', ['test' => $test->id]) }}" method="post">
     @csrf
+    @method('put')
     <label for="title">Заголовок</label>
     <input type="text" name="title" value="{{ $test->title }}" placeholder="Заголовок"><br>
 
