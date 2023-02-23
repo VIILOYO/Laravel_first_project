@@ -2,11 +2,11 @@
 
 <form method="post" action="{{ route('posts.store') }}">
     @csrf
-    <label for="title">Title</label>
-    <input type="text" name="title"><br>
+    <label for="title">Заголовок</label><br>
+    <input type="text" name="title" placeholder="Заголовок"><br>
 
-    <label for="content">Content</label>
-    <input type="textarea" name="content"><br>
+    <label for="content">Контент</label><br>
+    <input type="textarea" name="content" placeholder="Контент"><br>
 
     <input type="submit" value="Отправить">
 </form>

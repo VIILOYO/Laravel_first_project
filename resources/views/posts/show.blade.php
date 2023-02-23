@@ -6,3 +6,14 @@
 <p>{{ $post->content }}</p>
 <small>{{ $post->created_at }}</small><br>
 <hr>
+
+<form action="{{ route('posts.edit', [ $post->id ]) }}">
+    @csrf
+    <button>Обновить пост</button>
+</form>
+
+<form method="post" action="{{ route('posts.destroy', [ $post->id]) }}">
+    @csrf
+    @method('delete')
+    <button>Удалить пост</button>
+</form>

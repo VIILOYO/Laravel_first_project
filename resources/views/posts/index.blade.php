@@ -6,5 +6,5 @@
     <h3>{{ $post->title }}</h3>
     <p>{{ $post->content }}</p>
     <small>{{ $post->created_at }}</small><br>
-    <a href="/posts/{{ $post->id }}">Перейти на пост</a><hr>
+    <a href="{{ route('posts.show', [$post->id]) }}">Перейти на пост</a><hr>
 @endforeach

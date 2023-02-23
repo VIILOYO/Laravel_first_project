@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use App\Models\Category;
 use Illuminate\View\View;
 
+
 class CategoriesController extends Controller
 {
     /**
@@ -31,10 +32,14 @@ class CategoriesController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $request->validate([
+            'slug' => 'required|min:8|max:128|unique:categories',
+        ]);
+
         $data = $request->only('slug', 'title', 'description');
         $category = Category::firstOrCreate($data);
 
-        return redirect()->route('categories.show', ['category' => $category->id]);
+        return redirect()->route('categories.show', [$category->id]);
     }
 
     /**
@@ -58,10 +63,14 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, string $id): RedirectResponse
     {
-        $data = $request->only('slug', 'title', 'description');
-        $category = Category::findOrFail($id)->update($data);
+        $request->validate([
+            'slug' => "required|min:8|max:128|unique:categories,slug,$id",
+        ]);
 
-        return redirect()->route('categories.show', ['category' => $category]);
+        $data = $request->only('slug', 'title', 'description');
+        Category::findOrFail($id)->update($data);
+
+        return redirect()->route('categories.show', [Category::findOrFail($id)]);
     }
 
     /**
@@ -69,7 +78,7 @@ class CategoriesController extends Controller
      */
     public function destroy(string $id): RedirectResponse
     {
-        Category::remove($id);
+        Category::findOrFail($id)->delete();
 
         return redirect()->route('categories.index');
     }
