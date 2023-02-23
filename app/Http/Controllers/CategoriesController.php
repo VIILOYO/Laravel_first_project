@@ -33,21 +33,21 @@ class CategoriesController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'slug' => 'required|min:8|max:128|unique:categories',
+            'slug' => 'required|min:4|max:128|unique:categories',
         ]);
 
         $data = $request->only('slug', 'title', 'description');
         $category = Category::firstOrCreate($data);
 
-        return redirect()->route('categories.show', [$category->id]);
+        return redirect()->route('categories.show', [$category->slug]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id): View
+    public function show(string $slug): View
     {
-        return view('categories.show', ['category' => Category::findOrFail($id)]);
+        return view('categories.show', ['category' => Category::firstWhere('slug', $slug)]);
     }
 
     /**
@@ -64,7 +64,7 @@ class CategoriesController extends Controller
     public function update(Request $request, string $id): RedirectResponse
     {
         $request->validate([
-            'slug' => "required|min:8|max:128|unique:categories,slug,$id",
+            'slug' => "required|min:4|max:128|unique:categories,slug,$id",
         ]);
 
         $data = $request->only('slug', 'title', 'description');

@@ -1,6 +1,7 @@
 <title>Блог</title>
 <h1>Блок постов</h1>
-<a href="{{ route('posts.create') }}">Создать пост</a>
+<a href="{{ route('posts.create') }}">Создать пост</a><br>
+<a href="{{ route('trash.index') }}">Корзина</a>
 
 @foreach ($posts as $post)
     <h3>{{ $post->title }}</h3>
