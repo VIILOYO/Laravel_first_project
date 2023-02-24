@@ -11,8 +11,15 @@
         @enderror
     </div>
 
-    <label for="title">Заголовок</label><br>
-    <input type="text" name="title" placeholder="Заголовок" value="{{ old('title') }}"><br>
+    <div>
+        <label for="title">Заголовок</label><br>
+        <input type="text" name="title" placeholder="Заголовок" value="{{ old('title') }}"><br>
+        @error('title')
+        <div>
+            {{ $message }}
+        </div>
+        @enderror
+    </div>
 
     <label for="description">Описание</label><br>
     <textarea name="description"cols="20" rows="5" placeholder="Описание">{{ old('description') }}</textarea><br>

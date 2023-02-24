@@ -13,9 +13,16 @@
         @enderror
     </div>
 
-    <label for="title">Заголовок</label><br>
-    <input type="text" name="title" placeholder="Заголовок" value="{{ old('title') ?? $category->title }}"><br>
-
+    <div>
+        <label for="title">Заголовок</label><br>
+        <input type="text" name="title" placeholder="Заголовок" value="{{ old('title') ?? $category->title }}"><br>
+        @error('title')
+        <div>
+            {{ $message }}
+        </div>
+        @enderror
+    </div>
+    
     <label for="description">Описание</label><br>
     <textarea name="description"cols="20" rows="5" placeholder="Описание">{{ old('description') ?? $category->description }}</textarea><br>
 

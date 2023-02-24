@@ -33,7 +33,17 @@ class CategoriesController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'slug' => 'required|min:4|max:128|unique:categories',
+            'slug' => 'required|min:4|max:50|unique:categories',
+            'title' => 'required|min:5|max:128',
+        ],
+        [
+           'slug.required' => 'Короткий URL не указан',
+           'slug.min' => 'Короткий URL меньше 4 символов',
+           'slug.max' => 'Короткий URL больше 50 символов',
+           'slug.unique' => 'Короткий URL не уникален',
+           'title.required' => 'Заголовок не указан',
+           'title.min' => 'Заголовок меньше 5 символов',
+           'title.max' => 'Заголовок больше 128 символов',
         ]);
 
         $data = $request->only('slug', 'title', 'description');
@@ -64,7 +74,17 @@ class CategoriesController extends Controller
     public function update(Request $request, string $id): RedirectResponse
     {
         $request->validate([
-            'slug' => "required|min:4|max:128|unique:categories,slug,$id",
+            'slug' => "required|min:4|max:50|unique:categories,slug,$id",
+            'title' => 'required|min:5|max:128',
+        ],
+        [
+           'slug.required' => 'Короткий URL не указан',
+           'slug.min' => 'Короткий URL меньше 4 символов',
+           'slug.max' => 'Короткий URL больше 50 символов',
+           'slug.unique' => 'Короткий URL не уникален',
+           'title.required' => 'Заголовок не указан',
+           'title.min' => 'Заголовок меньше 5 символов',
+           'title.max' => 'Заголовок больше 128 символов',
         ]);
 
         $data = $request->only('slug', 'title', 'description');
