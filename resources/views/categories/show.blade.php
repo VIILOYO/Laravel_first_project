@@ -1,5 +1,5 @@
-<title>Категория {{ $category->id }}</title>
-<h1>Категория {{ $category->id }}</h1>
+<title>Категория {{ $category->slug }}</title>
+<h1>Категория {{ $category->slug }}</h1>
 <a href="{{ route('categories.index') }}">На главную</a>
 
 <h3>{{ $category->title }}</h3>

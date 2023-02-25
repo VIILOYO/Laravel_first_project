@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+
 use App\Models\Category;
 use Illuminate\View\View;
+use App\Http\Requests\StorePostRequest;
+
 
 
 class CategoriesController extends Controller
@@ -30,21 +33,9 @@ class CategoriesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(StorePostRequest $request): RedirectResponse
     {
-        $request->validate([
-            'slug' => 'required|min:4|max:50|unique:categories',
-            'title' => 'required|min:5|max:128',
-        ],
-        [
-           'slug.required' => 'Короткий URL не указан',
-           'slug.min' => 'Короткий URL меньше 4 символов',
-           'slug.max' => 'Короткий URL больше 50 символов',
-           'slug.unique' => 'Короткий URL не уникален',
-           'title.required' => 'Заголовок не указан',
-           'title.min' => 'Заголовок меньше 5 символов',
-           'title.max' => 'Заголовок больше 128 символов',
-        ]);
+        $validated = $request->validated();
 
         $data = $request->only('slug', 'title', 'description');
         $category = Category::firstOrCreate($data);
@@ -71,26 +62,14 @@ class CategoriesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): RedirectResponse
-    {
-        $request->validate([
-            'slug' => "required|min:4|max:50|unique:categories,slug,$id",
-            'title' => 'required|min:5|max:128',
-        ],
-        [
-           'slug.required' => 'Короткий URL не указан',
-           'slug.min' => 'Короткий URL меньше 4 символов',
-           'slug.max' => 'Короткий URL больше 50 символов',
-           'slug.unique' => 'Короткий URL не уникален',
-           'title.required' => 'Заголовок не указан',
-           'title.min' => 'Заголовок меньше 5 символов',
-           'title.max' => 'Заголовок больше 128 символов',
-        ]);
+    public function update(StorePostRequest $request, string $id): RedirectResponse
+    {   
+        $validated = $request->validated();
 
         $data = $request->only('slug', 'title', 'description');
         Category::findOrFail($id)->update($data);
 
-        return redirect()->route('categories.show', [Category::findOrFail($id)]);
+        return redirect()->route('categories.show', [Category::findOrFail($id)->slug]);
     }
 
     /**
