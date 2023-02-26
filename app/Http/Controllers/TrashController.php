@@ -24,7 +24,7 @@ class TrashController extends Controller
      */
     public function show(string $id): View
     {
-        $post = Post::withTrashed()->findOrFail($id);
+        $post = Post::onlyTrashed()->findOrFail($id);
         return view('posts.trash.show', ['post' => $post]);
     }
 
@@ -33,7 +33,7 @@ class TrashController extends Controller
      */
     public function restore($id): RedirectResponse
     {
-        Post::withTrashed()->findOrFail($id)->restore();
+        Post::onlyTrashed()->findOrFail($id)->restore();
         return redirect()->route('trash.index');
     }
 
@@ -42,7 +42,7 @@ class TrashController extends Controller
      */
     public function edit(string $id): View
     {
-        $post = Post::withTrashed()->findOrFail($id);
+        $post = Post::onlyTrashed()->findOrFail($id);
         return view('posts.trash.edit', ['post' => $post]);
     }
 
@@ -52,9 +52,18 @@ class TrashController extends Controller
     public function update(Request $request, string $id): RedirectResponse
     {
         $data = $request->only('title', 'content');
-        Post::withTrashed()->findOrFail($id)->update($data);
+        Post::onlyTrashed()->findOrFail($id)->update($data);
 
         return redirect()->route('trash.show', [Post::withTrashed()->findOrFail($id)]);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id): RedirectResponse
+    {
+        Post::onlyTrashed()->findOrFail($id)->forceDelete();
+        
+        return redirect()->route('trash.index');
+    }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StorePostRequest extends FormRequest
+class StoreCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -43,11 +43,11 @@ class StorePostRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'slug.required' => 'Короткий URL не указан',
+            'required' => "Поле $this->validated обязательно к заполнению",
+            'unique' => 'Поле должно быть уникальным',
             'slug.min' => 'Короткий URL меньше 4 символов',
             'slug.max' => 'Короткий URL больше 50 символов',
             'slug.unique' => 'Короткий URL не уникален',
-            'title.required' => 'Заголовок не указан',
             'title.min' => 'Заголовок меньше 5 символов',
             'title.max' => 'Заголовок больше 128 символов',
         ];

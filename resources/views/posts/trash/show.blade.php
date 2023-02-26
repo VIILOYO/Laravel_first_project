@@ -18,3 +18,9 @@
     @method('put')
     <button>Восстановить пост</button>
 </form>
+
+<form method="post" action="{{ route('trash.destroy', [ $post->id]) }}">
+    @csrf
+    @method('delete')
+    <button>Удалить полностью</button>
+</form>
