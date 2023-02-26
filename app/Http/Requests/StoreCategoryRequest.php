@@ -39,17 +39,4 @@ class StoreCategoryRequest extends FormRequest
             ],
         ];
     }
-
-    public function messages(): array
-    {
-        return [
-            'required' => "Поле $this->validated обязательно к заполнению",
-            'unique' => 'Поле должно быть уникальным',
-            'slug.min' => 'Короткий URL меньше 4 символов',
-            'slug.max' => 'Короткий URL больше 50 символов',
-            'slug.unique' => 'Короткий URL не уникален',
-            'title.min' => 'Заголовок меньше 5 символов',
-            'title.max' => 'Заголовок больше 128 символов',
-        ];
-    }
 }
