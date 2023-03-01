@@ -3,17 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class PostsController extends Controller
 {
     public function index() {
-        return 'Hello, World!';
+        $posts = Post::all();
+        foreach ($posts as $post) {
+            echo($post->title . '<br>' . $post->content . '<hr>');
+        };
     }
 
     public function post($id) {
-        for ($i=0; $i < $id+10; $i++) { 
-            $posts[] = mt_rand(0, $id+10);
-        }
-        return $posts[$id];
+        $post = Post::findOrFail($id);
+        return($post->title . '<br>' . $post->content);
     }
 }

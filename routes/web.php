@@ -8,8 +8,8 @@ use App\Http\Controllers\HelloController;
 use App\Http\Controllers\MyPlaceController;
 
 
-Route::get('/', [PostsController::class, 'index']);
-Route::get('post/{id}', [PostsController::class, 'post']);
+Route::get('/posts', [PostsController::class, 'index']);
+Route::get('/posts/{id}', [PostsController::class, 'post']);
 
 Route::get('hello', [HelloController::class, 'hello']);
 Route::get('hello/{id}', [HelloController::class, 'user']);
