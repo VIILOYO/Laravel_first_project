@@ -15,6 +15,8 @@ Route::get('/posts', [PostController::class, 'index'])->name('posts');
 Route::get('/posts/{id}', [PostController::class, 'post'])->whereNumber('id');
 Route::get('/posts/likest', [PostController::class, 'likest']);
 Route::get('/posts/create', [PostController::class, 'create']);
+Route::get('/posts/first_or_create', [PostController::class, 'firstOrCreate']);
+Route::get('/posts/update_or_create', [PostController::class, 'updateOrCreate']);
 Route::get('/posts/{id}/update', [PostController::class, 'update'])->whereNumber('id');
 Route::get('/posts/{id}/delete', [PostController::class, 'delete'])->whereNumber('id');
 

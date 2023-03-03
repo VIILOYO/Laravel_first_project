@@ -69,4 +69,30 @@ class PostController extends Controller
         $post->delete();
         return redirect('/posts');
     }
+
+    public function firstOrCreate() {
+        $post = [
+            'title' => 'Первый пост',
+            'content' => 'Контент первого поста',
+            'image' => 'Изображение',
+            'likes' => 5000,
+            'is_published' => TRUE,
+        ];
+
+        Post::firstOrCreate($post);
+        return redirect('/posts');
+    }
+
+    public function updateOrCreate() {
+        $post = [
+            'title' => 'Первый пост',
+            'content' => 'Контент первого поста',
+            'image' => 'Изображение',
+            'likes' => 5000,
+            'is_published' => TRUE,
+        ];
+
+        Post::updateOrCreate($post, ['title' => 'Обновлено']);
+        return redirect('/posts');
+    }
 }
