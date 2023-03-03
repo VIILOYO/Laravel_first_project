@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\models\Friend;
 
-class FriendsController extends Controller
+class FriendController extends Controller
 {
     public function index() {
         $friends = Friend::where('ia_alive', 1)->orderByDesc('age')->get();
@@ -30,4 +30,27 @@ class FriendsController extends Controller
         }
     }
 
+    public function create() {
+        $friend = [
+            'first_name' => 'Pukpuk',
+            'last_name' => 'Pukpukich',
+            'age' => mt_rand(20,50),
+            'ia_alive' => 1,
+        ];
+        Friend::create($friend);
+
+        return redirect('/friends');
+    }
+
+    public function die($id) {
+        $friend = Friend::findOrFail($id);
+        $friend->update(['ia_alive' => 0]);
+        return redirect('/friends');
+    }
+
+    public function delete($id) {
+        $friend = Friend::findOrFail($id);
+        $friend->delete();
+        return redirect('/friends');
+    }
 }

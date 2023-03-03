@@ -19,6 +19,7 @@ return new class extends Migration
             $table->boolean('is_visited')->default(0);
             $table->unsignedTinyInteger('rating')->defaul(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

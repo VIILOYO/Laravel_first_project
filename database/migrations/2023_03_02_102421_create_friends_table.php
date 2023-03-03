@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('age');
             $table->boolean('ia_alive')->defaul(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

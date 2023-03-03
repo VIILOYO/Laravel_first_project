@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('count')->default(0);
             $table->boolean('is_active')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
