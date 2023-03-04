@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('posts', function (Blueprint $table) {
-            Schema::dropIfExists('posts');
+            //Schema::dropIfExists('posts');
         });
     }
 
@@ -22,14 +22,14 @@ return new class extends Migration
     public function down(): void
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('content')->nullable();
-            $table->string('image')->nullable();
-            $table->unsignedMediumInteger('likes')->default(0);
-            $table->boolean('is_published')->defaul(1);
-            $table->timestamps();
-            $table->softDeletes();
+            // $table->id();
+            // $table->string('title');
+            // $table->text('content')->nullable();
+            // $table->string('image')->nullable();
+            // $table->unsignedMediumInteger('likes')->default(0);
+            // $table->boolean('is_published')->defaul(1);
+            // $table->timestamps();
+            // $table->softDeletes();
         });
     }
 };

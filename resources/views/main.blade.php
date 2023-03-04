@@ -11,10 +11,7 @@
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ route('posts') }}">Посты</a>
-        <a class="navbar-brand" href="{{ route('friends') }}">Друзья</a>
-        <a class="navbar-brand" href="{{ route('tests') }}">Тесты</a>
-        <a class="navbar-brand" href="{{ route('places') }}">Места</a>
+        <a class="navbar-brand" href="{{ route('post.index') }}">Посты</a>
     </div>
 </nav>
 

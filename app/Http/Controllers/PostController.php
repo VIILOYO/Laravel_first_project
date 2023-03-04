@@ -9,22 +9,19 @@ class PostController extends Controller
 {
     public function index() {
         $posts = Post::where('is_published', 1)->get();
-        foreach ($posts as $post) {
-            echo($post->title . '<br>' . $post->content . '<hr>');
-        };
+        
+        return view('posts.posts', compact('posts'));
     }
 
     public function post($id) {
         $post = Post::findOrFail($id);
-        return($post->title . '<br>' . $post->content);
+        return view('posts.post', compact('post'));
     }
 
     public function likest() {
         $posts = Post::where('is_published', 1)->orderByDesc('likes')->limit(3)->get();
         
-        foreach ($posts as $post) {
-            echo($post->title . '<br>' . $post->content . '<br>' . $post->likes . '<hr>');
-        };
+        return view('posts.posts', compact('posts'));
     }
 
     public function create() {
