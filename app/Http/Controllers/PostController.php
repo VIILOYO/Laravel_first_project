@@ -7,96 +7,70 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
-    public function index() {
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
         $posts = Post::where('is_published', 1)->get();
-        
         return view('posts.posts', compact('posts'));
     }
 
-    public function post($id) {
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $data = $request->only('title', 'content', 'image');
+        Post::create($data);
+
+        return redirect()->route('posts.index');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
         $post = Post::findOrFail($id);
         return view('posts.post', compact('post'));
     }
 
-    public function likest() {
-        $posts = Post::where('is_published', 1)->orderByDesc('likes')->limit(3)->get();
-        
-        return view('posts.posts', compact('posts'));
-    }
-
-    public function create() {
-        $posts = [
-            [
-                'title' => 'Новый пост',
-                'content' => 'Контент нового поста',
-                'image' => 'Изображение',
-                'likes' => 12,
-                'is_published' => TRUE,
-            ], 
-            [
-                'title' => 'Новый пост 2',
-                'content' => 'Контент нового поста 2',
-                'image' => 'Изображение 2',
-                'likes' => 25,
-                'is_published' => TRUE,
-            ]
-        ];
-        
-        foreach($posts as $post) {
-            $postCreate = Post::create($post);
-            echo 'Пост ' . $postCreate->id . ' создан успешно <hr>';
-        }
-    }
-
-    public function update($id) {
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
         $post = Post::findOrFail($id);
-        $post->update([
-            'title' => 'updated',
-            'content' => 'updated',
-            'image' => 'updated',
-            'likes' => 15,
-            'is_published' => 1,
-        ]);
-
-        return redirect('/posts');
+        return view('posts.edit', compact('post'));
     }
 
-    public function delete($id) {
-        $post = Post::findOrFail($id);
-        $post->delete();
-        return redirect('/posts');
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        $data = $request->only('title', 'content', 'image');
+        Post::findOrfail($id)->update($data);
+
+        return redirect()->route('posts.index');
     }
 
-    public function firstOrCreate() {
-        $post = [
-            'title' => 'Первый пост',
-            'content' => 'Контент первого поста',
-            'image' => 'Изображение',
-            'likes' => 5000,
-            'is_published' => TRUE,
-        ];
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        Post::findOrFail($id)->delete();
 
-        Post::firstOrCreate($post);
-        return redirect('/posts');
-    }
-
-    public function updateOrCreate() {
-        $post = [
-            'title' => 'Первый пост',
-            'content' => 'Контент первого поста',
-            'image' => 'Изображение',
-            'likes' => 5000,
-            'is_published' => TRUE,
-        ];
-
-        Post::updateOrCreate($post, ['title' => 'Обновлено']);
-        return redirect('/posts');
-    }
-
-    public function like($id) {
-        $post = Post::findOrFail($id);
-        $post->update(['likes' => $post->likes+1]);
-
-        return redirect()->route('post.show', [$post->id]);
+        return redirect()->route('posts.index');
     }
 }

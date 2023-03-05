@@ -4,5 +4,19 @@
 // Variables
 @import 'variables';
 
+$body-bg: #fff;
+
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+.card {
+    margin-bottom: 25px;
+}
+
+.navbar {
+    background-color: #f3f3f3;
+}
+
+.container {
+    margin-top: 25px;
+}
