@@ -92,4 +92,11 @@ class PostController extends Controller
         Post::updateOrCreate($post, ['title' => 'Обновлено']);
         return redirect('/posts');
     }
+
+    public function like($id) {
+        $post = Post::findOrFail($id);
+        $post->update(['likes' => $post->likes+1]);
+
+        return redirect()->route('post.show', [$post->id]);
+    }
 }

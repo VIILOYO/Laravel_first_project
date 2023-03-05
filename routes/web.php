@@ -3,10 +3,10 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PostController;
-use PHPUnit\Framework\Attributes\PostCondition;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function() {
-    return view('main');
+    return view('posts.layouts.main');
 });
 
 Route::prefix('/posts')->controller(PostController::class)->group(function () {
@@ -18,4 +18,8 @@ Route::prefix('/posts')->controller(PostController::class)->group(function () {
     Route::get('/update_or_create', 'updateOrCreate');
     Route::get('/{id}/update', 'update')->whereNumber('id');
     Route::get('/{id}/delete', 'delete')->whereNumber('id');
+    Route::get('/{id}/like', 'like')->whereNumber('id')->name('post.like');
 });
+
+Auth::routes();
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
