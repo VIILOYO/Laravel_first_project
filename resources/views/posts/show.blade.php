@@ -6,9 +6,13 @@
             <h5 class="card-title">{{ $post->title }}</h5>
             <h6 class="card-subtitle mb-2 text-muted">Лайки: {{ $post->likes }}</h6>
             <p class="card-text">{{ $post->content }}</p>
-            <a href="{{ route('posts.edit', [$post->id]) }}">Редактировать</a>
 
-            <form action="{{ route('posts.destroy', [$post->id]) }}" method="post">
+            <form action="{{ route('posts.edit', [$post->id]) }}" method="get" style="float: left;">
+                @csrf
+                <button type="submit" class="btn btn-success">Редактировать</button>
+            </form>
+
+            <form action="{{ route('posts.destroy', [$post->id]) }}" method="post" style="margin-left: 20px;">
                 @csrf
                 @method('delete')
                 <button type="submit" class="btn btn-danger">Удалить</button>
