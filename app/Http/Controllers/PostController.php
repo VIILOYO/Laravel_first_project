@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Post;
 
@@ -13,6 +14,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::where('is_published', 1)->get();
+
         return view('posts.index', compact('posts'));
     }
 
@@ -21,7 +23,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $categories = Category::all();
+
+        return view('posts.create', compact('categories'));
     }
 
     /**
@@ -29,7 +33,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->only('title', 'content', 'image');
+        $data = $request->only('title', 'content', 'image', 'category_id');
         Post::create($data);
 
         return redirect()->route('posts.index');
@@ -48,7 +52,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.edit', compact('post'));
+        $categories = Category::all();
+
+        return view('posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -56,7 +62,7 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data = $request->only('title', 'content', 'image');
+        $data = $request->only('title', 'content', 'image', 'category_id');
         Post::findOrfail($id)->update($data);
 
         return redirect()->route('posts.index');
@@ -68,6 +74,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
+
         return redirect()->route('posts.index');
     }
 }

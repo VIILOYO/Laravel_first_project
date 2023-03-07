@@ -17,6 +17,18 @@
             <label for="image" class="form-label">Изображение</label>
             <input name="image" type="text" class="form-control" placeholder="Изображение" value="{{ $post->image }}">
         </div>
+
+        <div class="mb-3">
+            <label for="category_id">Категория</label>
+            
+            <select name="category_id" id="category_id" class="form-select" aria-label="Default select example">
+                <option selected>Категория</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->title }}</option>
+                @endforeach
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Изменить</button>
 </form>
 

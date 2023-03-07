@@ -4,8 +4,9 @@
     <div class="card" style="width: 64rem;">
         <div class="card-body">
             <h5 class="card-title">{{ $post->title }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Лайки: {{ $post->likes }}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">Категория: {{ $post->category->title }}</h6>
             <p class="card-text">{{ $post->content }}</p>
+            <h6 class="card-subtitle mb-2 text-muted">Лайки: {{ $post->likes }}</h6>
 
             <form action="{{ route('posts.edit', [$post->id]) }}" method="get" style="float: left;">
                 @csrf
