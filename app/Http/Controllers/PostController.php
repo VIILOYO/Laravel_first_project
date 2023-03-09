@@ -36,7 +36,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->only('title', 'content', 'image', 'category_id', 'tags');
+        $data = $request->validate([
+            'title' => ['required'],
+            'content' => ['required'],
+            'image' => ['required'],
+            'category_id' => ['required'],
+            'tags' => ['required'],
+        ]);
         $tags = $data['tags'];
         unset($data['tags']);
 
@@ -71,7 +77,14 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        $data = $request->only('title', 'content', 'image', 'category_id', 'tags');
+        $data = $request->validate([
+            'title' => ['required', 'max:255', 'min:4'],
+            'content' => ['required', 'min:4'],
+            'image' => ['required'],
+            'category_id' => ['required'],
+            'tags' => '',
+        ]);
+
         $tags = $data['tags'];
         unset($data['tags']);
 
