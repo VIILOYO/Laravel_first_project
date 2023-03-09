@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\PostTag;
 use App\Models\Post;
+use App\Models\Tag;
 
 class PostController extends Controller
 {
@@ -24,8 +26,9 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('posts.create', compact('categories'));
+        return view('posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -33,8 +36,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->only('title', 'content', 'image', 'category_id');
-        Post::create($data);
+        $data = $request->only('title', 'content', 'image', 'category_id', 'tags');
+        $tags = $data['tags'];
+        unset($data['tags']);
+
+        $post = Post::create($data);
+
+        $post->tags()->attach($tags);
 
         return redirect()->route('posts.index');
     }
@@ -53,18 +61,23 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('posts.edit', compact('post', 'categories'));
+        return view('posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Post $post)
     {
-        $data = $request->only('title', 'content', 'image', 'category_id');
-        Post::findOrfail($id)->update($data);
+        $data = $request->only('title', 'content', 'image', 'category_id', 'tags');
+        $tags = $data['tags'];
+        unset($data['tags']);
 
+        $post->update($data);
+        $post->tags()->sync($tags);
+            
         return redirect()->route('posts.index');
     }
 
