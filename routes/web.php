@@ -2,13 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Post\DestroyController;
-use App\Http\Controllers\Post\CreateController;
-use App\Http\Controllers\Post\UpdateController;
-Use App\Http\Controllers\Post\IndexController;
-use App\Http\Controllers\Post\StoreController;
-use App\Http\Controllers\Post\EditController;
-use App\Http\Controllers\Post\ShowController;
 use App\Http\Controllers\PostTrashController;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +10,7 @@ Route::get('/', function() {
     return redirect()->route('posts.index');
 });
 
-Route::prefix('posts')->group(function () {
+Route::group(['prefix' => 'posts', 'namespace' => 'App\Http\COntrollers\Post'], function () {
     Route::get('/', IndexController::class)->name('posts.index');
     Route::get('/create', CreateController::class)->name('posts.create');
     Route::post('/store', StoreController::class)->name('posts.store');
