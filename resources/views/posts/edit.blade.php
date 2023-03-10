@@ -34,12 +34,21 @@
             <label for="category_id">Категория</label>
             
             <select name="category_id" id="category_id" class="form-select">
-                @foreach ($categories as $category)
-                    <option 
-                        {{ $category->id === $post->category_id ? 'selected' : '' }}
-                         value="{{ $category->id }}">{{ $category->title }}
-                    </option>
-                @endforeach
+                @if (old('category_id'))       
+                    @foreach ($categories as $category)
+                        <option 
+                            {{ $category->id == old('category_id') ? 'selected' : '' }}
+                            value="{{ $category->id }}">{{ $category->title }}
+                        </option>
+                    @endforeach
+                @else
+                    @foreach ($categories as $category)
+                        <option 
+                            {{ $category->id === $post->category_id ? 'selected' : '' }}
+                            value="{{ $category->id }}">{{ $category->title }}
+                        </option>
+                    @endforeach
+                @endif
             </select>
         </div>
 
@@ -47,14 +56,25 @@
             <label for="tags">Тэги</label>
 
             <select class="form-select" multiple id="tags" name="tags[]">
-                @foreach ($tags as $tag)
-                    <option 
-                        @foreach ($post->tags as $postTag)
-                            {{ $tag->id === $postTag->id ? 'selected' : '' }}
-                        @endforeach
-                        value="{{ $tag->id }}">{{ $tag->title }}
-                    </option>
-                @endforeach
+                @if (old('tags')) 
+                    @foreach ($tags as $tag)
+                        <option 
+                            @foreach (old('tags') as $oldTag)
+                                {{ $oldTag == $tag->id ? 'selected' : '' }}
+                            @endforeach
+                            value="{{ $tag->id }}">{{ $tag->title }}
+                        </option>
+                    @endforeach
+                @else
+                    @foreach ($tags as $tag)
+                        <option 
+                            @foreach ($post->tags as $postTag)
+                                {{ $tag->id == $postTag->id ? 'selected' : '' }}
+                            @endforeach
+                            value="{{ $tag->id }}">{{ $tag->title }}
+                        </option>
+                    @endforeach
+                @endif
             </select>
         </div>
 
