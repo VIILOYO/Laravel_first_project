@@ -10,7 +10,7 @@ class IndexController extends Controller
 {
     public function __invoke(): View
     {
-        $posts = Post::where('is_published', 1)->get();
+        $posts = Post::where('is_published', 1)->orderByDesc('created_at')->get();
 
         return view('posts.index', compact('posts'));
     }
