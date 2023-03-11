@@ -10,8 +10,8 @@ class DestroyController extends Controller
 {
     public function __invoke(Post $post)
     {
-        $posts = Post::where('is_published', 1)->get();
+        $post->delete();
 
-        return view('posts.index', compact('posts'));
+        return redirect()->route('posts.index');
     }
 }
