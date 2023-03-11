@@ -5,7 +5,7 @@
 @foreach ($posts as $post)
 <div class="card">
     <div class="card-header">
-        {{ $post->id }} Категория: {{ $post->category->title }}
+        Категория: {{ $post->category->title }}
     </div>
     <div class="card-body">
         <h5 class="card-title">{{ $post->title }}</h5>
@@ -16,6 +16,6 @@
 </div>
 @endforeach
 <div>
-    {{ $posts->links() }}
+    {{ $posts->withQueryString()->links() }}
 </div>
 @endsection

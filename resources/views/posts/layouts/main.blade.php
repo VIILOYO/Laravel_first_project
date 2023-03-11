@@ -24,7 +24,12 @@
                         <a class="nav-link active" aria-current="page" href="{{ route('trash.index') }}">Корзина постов</a>
                     </li>
                 </ul>
-            </div>
+                <form action="{{ route('posts.index') }}" class="d-flex" role="search" method="get">
+                    @csrf
+                    <input name="title" class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Найти</button>
+                </form>
+            </div>  
         </div>
     </nav>
     
