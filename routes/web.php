@@ -1,14 +1,20 @@
 <?php
 
+use App\Http\Controllers\PostTrashController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\PostTrashController;
 use Illuminate\Support\Facades\Auth;
 
 
 Route::get('/', function() {
     return redirect()->route('posts.index');
 });
+
+Route::get('/admin', AdminController::class)
+                        ->middleware('auth')
+                        ->middleware('admin')
+                        ->name('admin.index');
 
 Route::group(['prefix' => 'posts', 'namespace' => 'App\Http\COntrollers\Post'], function () {
     Route::get('/', IndexController::class)->name('posts.index');
