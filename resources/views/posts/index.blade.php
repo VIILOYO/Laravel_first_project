@@ -2,6 +2,13 @@
 
 @section('content')
 
+<div class="col-4 mb-3 ms-auto">
+    <form action="{{ route('posts.index') }}" class="d-flex" role="search" method="get">
+        @csrf
+        <input name="title" class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Найти</button>
+    </form>
+</div>
 @foreach ($posts as $post)
 <div class="card">
     <div class="card-header">
